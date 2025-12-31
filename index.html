@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teddy Bear New Year Surprise</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(rgba(230, 230, 250, 0.9), rgba(255, 240, 245, 0.9)), 
+                        url('images/background/lavender_background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #5a5a8a;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e6e6fa 0%, #fff0f5 100%);
+            z-index: -2;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.92);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(147, 112, 219, 0.2);
+            border: 3px solid #e6e6fa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #d8bfd8;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3.5rem;
+            color: #9370db;
+            text-shadow: 2px 2px 0 #e6e6fa;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #9370db, #dda0dd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #ba55d3;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .instruction {
+            font-size: 1.1rem;
+            color: #8888cc;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px 20px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(147, 112, 219, 0.15);
+            border: 1px solid #e6e6fa;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(147, 112, 219, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 2px solid #e6e6fa;
+        }
+
+        .music-btn {
+            background: linear-gradient(45deg, #9370db, #ba55d3);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(147, 112, 219, 0.4);
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 6px 15px rgba(147, 112, 219, 0.6);
+        }
+
+        /* Teddy Area */
+        .teddy-area {
+            position: relative;
+            min-height: 500px;
+            margin: 30px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .initial-teddy {
+            cursor: pointer;
+            transition: all 0.4s ease;
+            padding: 25px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 230, 250, 0.9));
+            box-shadow: 0 10px 30px rgba(147, 112, 219, 0.25);
+            border: 2px solid #e6e6fa;
+        }
+
+        .initial-teddy:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 15px 40px rgba(147, 112, 219, 0.4);
+        }
+
+        .teddy-img {
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            border: 5px solid #e6e6fa;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .teddy-label {
+            font-family: 'Comic Neue', cursive;
+            font-size: 1.8rem;
+            color: #9370db;
+            margin-top: 10px;
+            font-weight: bold;
+            padding: 8px 20px;
+            background: linear-gradient(to right, #e6e6fa, #f8f8ff);
+            border-radius: 50px;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(147, 112, 219, 0.2);
+        }
+
+        /* Screens */
+        .two-teddies, .sad-screen, .three-bears, .vintage-screen, .memory-screen, .confetti-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .two-teddies-title, .sad-title, .three-bears-title {
+            font-family: 'Comic Neue', cursive;
+            font-size: 2.5rem;
+            color: #9370db;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 0 #e6e6fa;
+            padding: 10px 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            border: 2px dashed #d8bfd8;
+        }
+
+        .teddy-pair {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .teddy-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(147, 112, 219, 0.2);
+        }
+
+        .two-teddies-img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 20px;
+            border: 5px solid #e6e6fa;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 16px 45px;
+            font-size: 1.8rem;
+            font-family: 'Fredoka One', cursive;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            margin: 10px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(to right, #98fb98, #90ee90);
+            color: #2e8b57;
+            border: 3px solid #32cd32;
+        }
+
+        .btn-yes:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(152, 251, 152, 0.4);
+        }
+
+        .btn-no {
+            background: linear-gradient(to right, #ffb6c1, #ff8fab);
+            color: #c71585;
+            border: 3px solid #db7093;
+        }
+
+        .btn-no:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(255, 182, 193, 0.4);
+        }
+
+        /* Sad Teddy */
+        .sad-teddy-img {
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+            border-radius: 20px;
+            border: 5px solid #ffb6c1;
+        }
+
+        .sad-message {
+            font-size: 1.8rem;
+            color: #5a5a8a;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 25px 30px;
+            border-radius: 20px;
+            max-width: 700px;
+            margin: 30px 0;
+            box-shadow: 0 10px 20px rgba(147, 112, 219, 0.2);
+            border: 2px solid #ffb6c1;
+        }
+
+        .sad-message span {
+            color: #db7093;
+            font-weight: bold;
+            font-size: 2rem;
+        }
+
+        .tear {
+            position: absolute;
+            width: 12px;
+            height: 25px;
+            background: linear-gradient(to bottom, #87ceeb, #4682b4);
+            border-radius: 50%;
+            animation: cry 1.5s infinite;
+        }
+
+        .tear-1 { top: 80px; left: 100px; }
+        .tear-2 { top: 85px; right: 100px; animation-delay: 0.5s; }
+        .tear-3 { top: 100px; left: 95px; animation-delay: 0.2s; }
+        .tear-4 { top: 105px; right: 95px; animation-delay: 0.7s; }
+
+        @keyframes cry {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(40px) scale(0.5); opacity: 0; }
+        }
+
+        /* Three Bears */
+        .three-bears-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .bear-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(147, 112, 219, 0.2);
+        }
+
+        .bear-img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            border-radius: 20px;
+            border: 5px solid #e6e6fa;
+        }
+
+        .bear-name {
+            font-family: 'Comic Neue', cursive;
+            font-size: 1.8rem;
+            color: #9370db;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* PORTRAIT VIDEO FRAME */
+        .portrait-video-container {
+            width: 90%;
+            max-width: 400px;
+            margin: 30px auto;
+            background: linear-gradient(135deg, #9370db 0%, #ba55d3 100%);
+            border-radius: 25px;
+            padding: 20px;
+            box-shadow: 0 25px 50px rgba(147, 112, 219, 0.4);
+            border: 8px solid #8a2be2;
+        }
+
+        .portrait-frame {
+            background: #2a1b3d;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 3px solid #e6e6fa;
+            margin-bottom: 25px;
+        }
+
+        .portrait-video-wrapper {
+            padding: 15px;
+            background: #1a0f2a;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 500px;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-controls-panel {
+            background: linear-gradient(90deg, #2a1b3d, #1a0f2a);
+            padding: 15px;
+            border-top: 2px solid #8a2be2;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .control-btn {
+            background: #9370db;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: #ba55d3;
+            transform: scale(1.1);
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        /* Back button */
+        .back-btn {
+            background: linear-gradient(to right, #ffb6c1, #ff8fab);
+            color: white;
+            padding: 14px 35px;
+            font-size: 1.3rem;
+            margin-top: 30px;
+            border: 3px solid #db7093;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .teddy-img, .two-teddies-img, .sad-teddy-img, .bear-img { 
+                width: 180px; height: 180px; 
+            }
+            .video-player { height: 450px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Music Player -->
+    <div class="music-player">
+        <button class="music-btn" id="playMusicBtn">
+            <i class="fas fa-play"></i>
+        </button>
+        <span style="color:#9370db; font-weight:bold;">New Year Song</span>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🧸 Teddy Bear New Year Surprise 🧸</h1>
+            <p class="subtitle">Click on the teddy bear to begin your magical New Year adventure!</p>
+        </div>
+
+        <!-- Initial Teddy -->
+        <div class="teddy-area">
+            <div class="initial-teddy" id="initialTeddy">
+                <img src="images/teddies/initial_teddy.jpg" alt="Cute Teddy" class="teddy-img">
+                <p class="teddy-label">Click me! 🐻</p>
+            </div>
+        </div>
+
+        <!-- Two Teddies Screen -->
+        <div class="two-teddies" id="twoTeddiesScreen">
+            <h2 class="two-teddies-title">Two Cute & Chubby Teddies!</h2>
+            <div class="teddy-pair">
+                <div class="teddy-wrapper">
+                    <img src="images/teddies/initial_teddy.jpg" alt="First Teddy" class="two-teddies-img">
+                    <p class="teddy-label">Teddy Blue</p>
+                </div>
+                <div class="teddy-wrapper">
+                    <img src="images/teddies/yesno_teddy.jpg" alt="Second Teddy" class="two-teddies-img">
+                    <p class="teddy-label">Teddy Pink</p>
+                </div>
+            </div>
+            <p class="subtitle">Will you celebrate New Year with us?</p>
+            <div>
+                <button class="btn btn-yes" id="yesBtn">YES! 🎉</button>
+                <button class="btn btn-no" id="noBtn">NO 😔</button>
+            </div>
+        </div>
+
+        <!-- Sad Teddy Screen -->
+        <div class="sad-screen" id="sadScreen">
+            <h2 class="sad-title">Oh no! 😢</h2>
+            <div style="position:relative;">
+                <img src="images/teddies/initial_teddy.jpg" alt="Sad Teddy" class="sad-teddy-img">
+                <div class="tear tear-1"></div>
+                <div class="tear tear-2"></div>
+                <div class="tear tear-3"></div>
+                <div class="tear tear-4"></div>
+            </div>
+            <div class="sad-message">
+                <span>Why did you click NO? 😭 I am so sad... Bugu Bugu...</span>
+            </div>
+            <button class="btn back-btn" id="returnBtn">Go Back & Choose YES</button>
+        </div>
+
+        <!-- Three Bears Screen -->
+        <div class="three-bears" id="threeBearsScreen">
+            <h2 class="three-bears-title">Yay! Three Celebration Bears! 🎊</h2>
+            <p class="subtitle">Click on a bear to reveal a special New Year surprise!</p>
+            <div class="three-bears-container">
+                <div class="bear-option" id="bear1">
+                    <img src="images/teddies/initial_teddy.jpg" alt="Vintage Bear" class="bear-img">
+                    <p class="bear-name">Vintage Bear</p>
+                </div>
+                <div class="bear-option" id="bear2">
+                    <img src="images/teddies/yesno_teddy.jpg" alt="Memory Bear" class="bear-img">
+                    <p class="bear-name">Memory Bear</p>
+                </div>
+                <div class="bear-option" id="bear3">
+                    <img src="images/teddies/confetti_teddy.jpg" alt="Confetti Bear" class="bear-img">
+                    <p class="bear-name">Confetti Bear</p>
+                </div>
+            </div>
+            <button class="btn back-btn" id="backToTwoBtn">Back to Two Teddies</button>
+        </div>
+
+        <!-- Vintage Border Screen -->
+        <div class="vintage-screen" id="vintageScreen">
+            <div style="max-width:800px; margin:auto; padding:40px; background:#f9f3e9; border:20px solid #e8d0a9; border-radius:20px;">
+                <h2 style="font-size:3rem; color:#d4af37;">Happy New Year 2026! 🎇</h2>
+                <p style="font-size:2rem; color:#8b7355; margin:20px 0;">Upload your special memory photo!</p>
+                <div style="width:100%; height:300px; background:#ffecd2; border-radius:10px; margin:30px 0; display:flex; align-items:center; justify-content:center;">
+                    <input type="file" id="imageUpload" accept="image/*" style="display:none;">
+                    <button onclick="document.getElementById('imageUpload').click()" style="background:#d4af37; color:white; border:none; padding:15px 30px; border-radius:25px; cursor:pointer; font-size:1.2rem;">
+                        <i class="fas fa-upload"></i> Upload Your Image
+                    </button>
+                </div>
+                <img id="uploadedImage" style="max-width:100%; border-radius:10px; display:none;">
+            </div>
+            <button class="btn back-btn" id="backToThreeBtn1">Back to Three Bears</button>
+        </div>
+
+        <!-- Memory Roll Video Screen (PORTRAIT) -->
+        <div class="memory-screen" id="memoryScreen">
+            <h2 class="memory-title">2025 Memory Roll 🎬</h2>
+            <div class="portrait-video-container">
+                <div class="portrait-frame">
+                    <div class="portrait-video-wrapper">
+                        <div class="video-player">
+                            <video id="memoryVideo" controls style="width:100%; height:100%; object-fit:cover;">
+                                <source src="videos/memory_2025.mp4" type="video/mp4">
+                                Your browser doesn't support video.
+                            </video>
+                        </div>
+                    </div>
+                    <div class="video-controls-panel">
+                        <button class="control-btn" id="playPauseBtn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div style="flex:1; height:6px; background:rgba(255,255,255,0.2); border-radius:3px; margin:0 10px;">
+                            <div id="progressFill" style="width:0%; height:100%; background:#ff6b9d;"></div>
+                        </div>
+                        <span id="currentTime" style="color:white;">0:00</span>
+                        <button class="control-btn" id="soundBtn">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button class="btn back-btn" id="backToThreeBtn2">Back to Three Bears</button>
+        </div>
+
+        <!-- Confetti Screen -->
+        <div class="confetti-screen" id="confettiScreen">
+            <h2 style="font-size:4rem; color:#9370db; margin:30px 0;">Happy New Year! 🎊</h2>
+            <div style="font-size:2.5rem; color:#ba55d3; background:white; padding:25px; border-radius:25px; margin:20px;">
+                Wishing you a spectacular year ahead!
+            </div>
+            <div style="padding:20px; background:white; border-radius:25px; margin:30px;">
+                <img src="images/teddies/confetti_teddy.jpg" alt="Confetti Bear" style="width:250px; height:250px; object-fit:contain; border-radius:20px;">
+            </div>
+            <div style="font-size:2rem; color:#ff69b4; margin:30px;">
+                Let's make 2026 amazing! ✨
+            </div>
+            <button class="btn back-btn" id="backToThreeBtn3">Back to Three Bears</button>
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="backgroundMusic" loop>
+        <source src="music/newyear_song.mp3" type="audio/mpeg">
+        <source src="music/newyear_song.ogg" type="audio/ogg">
+    </audio>
+
+    <script>
+        // Get elements
+        const initialTeddy = document.getElementById('initialTeddy');
+        const twoTeddiesScreen = document.getElementById('twoTeddiesScreen');
+        const sadScreen = document.getElementById('sadScreen');
+        const threeBearsScreen = document.getElementById('threeBearsScreen');
+        const vintageScreen = document.getElementById('vintageScreen');
+        const memoryScreen = document.getElementById('memoryScreen');
+        const confettiScreen = document.getElementById('confettiScreen');
+        
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const returnBtn = document.getElementById('returnBtn');
+        const backToTwoBtn = document.getElementById('backToTwoBtn');
+        const bear1 = document.getElementById('bear1');
+        const bear2 = document.getElementById('bear2');
+        const bear3 = document.getElementById('bear3');
+        const backToThreeBtn1 = document.getElementById('backToThreeBtn1');
+        const backToThreeBtn2 = document.getElementById('backToThreeBtn2');
+        const backToThreeBtn3 = document.getElementById('backToThreeBtn3');
+        
+        // Music
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const playMusicBtn = document.getElementById('playMusicBtn');
+        let isMusicPlaying = false;
+        
+        // Video controls
+        const memoryVideo = document.getElementById('memoryVideo');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const soundBtn = document.getElementById('soundBtn');
+        const progressFill = document.getElementById('progressFill');
+        const currentTime = document.getElementById('currentTime');
+
+        // ========== INITIAL TEDDY ==========
+        initialTeddy.addEventListener('click', function() {
+            initialTeddy.style.display = 'none';
+            twoTeddiesScreen.style.display = 'flex';
+        });
+
+        // ========== YES/NO BUTTONS ==========
+        yesBtn.addEventListener('click', function() {
+            twoTeddiesScreen.style.display = 'none';
+            threeBearsScreen.style.display = 'flex';
+        });
+
+        noBtn.addEventListener('click', function() {
+            twoTeddiesScreen.style.display = 'none';
+            sadScreen.style.display = 'flex';
+        });
+
+        returnBtn.addEventListener('click', function() {
+            sadScreen.style.display = 'none';
+            twoTeddiesScreen.style.display = 'flex';
+        });
+
+        // ========== THREE BEARS ==========
+        backToTwoBtn.addEventListener('click', function() {
+            threeBearsScreen.style.display = 'none';
+            twoTeddiesScreen.style.display = 'flex';
+        });
+
+        bear1.addEventListener('click', function() {
+            threeBearsScreen.style.display = 'none';
+            vintageScreen.style.display = 'flex';
+        });
+
+        bear2.addEventListener('click', function() {
+            threeBearsScreen.style.display = 'none';
+            memoryScreen.style.display = 'flex';
+            // Start video
+            setTimeout(() => {
+                memoryVideo.play().catch(e => console.log('Video play failed:', e));
+            }, 500);
+        });
+
+        bear3.addEventListener('click', function() {
+            threeBearsScreen.style.display = 'none';
+            confettiScreen.style.display = 'flex';
+            createConfetti();
+        });
+
+        // ========== BACK BUTTONS ==========
+        backToThreeBtn1.addEventListener('click', function() {
+            vintageScreen.style.display = 'none';
+            threeBearsScreen.style.display = 'flex';
+        });
+
+        backToThreeBtn2.addEventListener('click', function() {
+            memoryScreen.style.display = 'none';
+            memoryVideo.pause();
+            threeBearsScreen.style.display = 'flex';
+        });
+
+        backToThreeBtn3.addEventListener('click', function() {
+            confettiScreen.style.display = 'none';
+            threeBearsScreen.style.display = 'flex';
+        });
+
+        // ========== MUSIC ==========
+        window.addEventListener('load', function() {
+            backgroundMusic.volume = 0.5;
+            backgroundMusic.play()
+                .then(() => {
+                    isMusicPlaying = true;
+                    playMusicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                })
+                .catch(e => {
+                    console.log('Music autoplay blocked');
+                });
+        });
+
+        playMusicBtn.addEventListener('click', function() {
+            if (isMusicPlaying) {
+                backgroundMusic.pause();
+                playMusicBtn.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                backgroundMusic.play();
+                playMusicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+            isMusicPlaying = !isMusicPlaying;
+        });
+
+        // ========== VIDEO CONTROLS ==========
+        memoryVideo.addEventListener('play', function() {
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        });
+
+        memoryVideo.addEventListener('pause', function() {
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        });
+
+        memoryVideo.addEventListener('timeupdate', function() {
+            const progress = (memoryVideo.currentTime / memoryVideo.duration) * 100;
+            progressFill.style.width = progress + '%';
+            currentTime.textContent = formatTime(memoryVideo.currentTime);
+        });
+
+        playPauseBtn.addEventListener('click', function() {
+            if (memoryVideo.paused) {
+                memoryVideo.play();
+            } else {
+                memoryVideo.pause();
+            }
+        });
+
+        soundBtn.addEventListener('click', function() {
+            memoryVideo.muted = !memoryVideo.muted;
+            soundBtn.innerHTML = memoryVideo.muted ? 
+                '<i class="fas fa-volume-mute"></i>' : 
+                '<i class="fas fa-volume-up"></i>';
+        });
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // ========== IMAGE UPLOAD ==========
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = document.getElementById('uploadedImage');
+                    img.src = event.target.result;
+                    img.style.display = 'block';
+                    document.querySelector('.vintage-screen button').style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // ========== CONFETTI ==========
+        function createConfetti() {
+            const colors = ['#9370db', '#ba55d3', '#ff69b4', '#98fb98', '#ffd700'];
+            const confettiScreen = document.getElementById('confettiScreen');
+            
+            // Clear existing
+            document.querySelectorAll('.confetti').forEach(c => c.remove());
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 15 + 10 + 'px';
+                confetti.style.height = Math.random() * 15 + 10 + 'px';
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confettiScreen.appendChild(confetti);
+            }
+        }
+
+        // ========== ERROR HANDLING ==========
+        window.addEventListener('error', function(e) {
+            console.log('Error:', e.message);
+        });
+
+        // Show initial screen
+        window.addEventListener('load', function() {
+            console.log('Website loaded successfully!');
+        });
+    </script>
+</body>
+</html>
